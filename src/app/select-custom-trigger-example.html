@@ -1,0 +1,82 @@
+<mat-form-field appearance="fill">
+  <mat-label>Toppings</mat-label>
+  <!-- <input type="text" matInput placeholder="States Group" formControlName="stateGroup" required [matAutocomplete]="autoGroup">
+     <mat-autocomplete #autoGroup="matAutocomplete"> -->
+  <input
+    type="text"
+    matInput
+    placeholder="Select Users"
+    aria-label="Select Users"
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="states"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <!-- <mat-select [formControl]="states" multiple> -->
+    <mat-select-trigger>
+      {{states.value ? states.value[0] : ''}}
+      <span
+        *ngIf="states.value?.length > 1"
+        class="example-additional-selection"
+      >
+        (+{{states.value.length - 1}} {{states.value?.length === 2 ? 'other' :
+        'others'}})
+      </span>
+    </mat-select-trigger>
+
+    <mat-optgroup *ngFor="let group of stateList">
+      <div>
+        <mat-checkbox
+          [checked]="group.checked"
+          (change)="toggleParent($event, group)"
+          (click)="$event.stopPropagation()"
+        >
+          {{group.letter}}
+        </mat-checkbox>
+        <button mat-button (click)="expandDocumentTypes(group)">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+      <mat-option
+        *ngFor="let name of group.names"
+        [value]="name"
+        [ngClass]="isExpandCategory[group.letter] ? 'list-show' : 'list-hide'"
+      >
+        <mat-checkbox
+          [checked]="group.checked  || this.stateRecord.includes(name.type)"
+          (change)="toggleSelection($event.checked, name, group)"
+          (click)="$event.stopPropagation()"
+        >
+          {{name.type}}
+        </mat-checkbox>
+      </mat-option>
+    </mat-optgroup>
+
+    <!-- </mat-select> -->
+  </mat-autocomplete>
+  <!-- </mat-autocomplete> -->
+</mat-form-field>
+<br />
+
+<pre>
+  - sates :  {{ formGroup.value | json }}
+</pre>
+<br />
+
+<pre>
+  - formGroup :   {{ formGroup.value | json }}
+</pre>
+<br />
+
+<pre>
+  - record : {{ stateRecord | json }}
+</pre>
+<br />
+
+<pre>
+  - stateList : {{ stateList | json }}
+</pre>
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

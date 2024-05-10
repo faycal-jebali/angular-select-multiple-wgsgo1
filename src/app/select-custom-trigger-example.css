@@ -1,0 +1,17 @@
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+.list-hide {
+  display: none;
+}
+
+.list-show {
+  display: block;
+}
+
+.mat-optgroup .mat-option:not(.mat-option-multiple) {
+  padding: 0px;
+  line-height: inherit;
+  height: auto;
+}
